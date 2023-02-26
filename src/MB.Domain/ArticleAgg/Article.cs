@@ -2,6 +2,7 @@
 using Framework.Domain;
 using MB.Domain.ArticleAgg.DomainService;
 using MB.Domain.CategoryAgg;
+using MB.Domain.CommentAgg;
 
 namespace MB.Domain.ArticleAgg;
 
@@ -14,6 +15,7 @@ public class Article : EntityBase
 	public ulong CategoryId { get; private set; }
     
     public Category Category { get; private set; }
+    public ICollection<Comment> Comments { get; private set; }
 
     public Article(string title, string shortDescription, string description,
         string image, ulong categoryId, IArticleDomainService articleDomainService)
@@ -28,6 +30,7 @@ public class Article : EntityBase
         Description = description;
         Image = image;
         CategoryId = categoryId;
+        Comments = new List<Comment>();
     }
 
     public void Edit(string title, string shortDescription, string description,
