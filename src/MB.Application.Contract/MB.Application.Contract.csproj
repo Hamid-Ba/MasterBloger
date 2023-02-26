@@ -9,13 +9,16 @@
   <ItemGroup>
     <None Remove="CategoryAgg\" />
     <None Remove="ArticleAgg\" />
+    <None Remove="CommentAgg\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CategoryAgg\" />
     <Folder Include="ArticleAgg\" />
+    <Folder Include="CommentAgg\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.csproj" />
+    <ProjectReference Include="..\MB.Domain\MB.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
