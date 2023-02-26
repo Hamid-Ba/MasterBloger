@@ -7,16 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Domain\" />
-    <None Remove="Infrastructure\" />
-    <None Remove="Application\" />
+    <None Remove="CategoryAgg\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Application\" />
+    <Folder Include="CategoryAgg\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
+    <ProjectReference Include="..\..\Framework\Framework.csproj" />
   </ItemGroup>
 </Project>
