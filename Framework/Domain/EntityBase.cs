@@ -9,7 +9,7 @@ public abstract class EntityBase
     public bool IsDelete { get; private set; }
     public DateTime CreationDate { get; private set; }
     public DateTime LastUpdateDate { get; set; }
-    public DateTime DeletionDate { get; private set; }
+    public DateTime? DeletionDate { get; private set; }
 
     protected EntityBase()
     {
@@ -21,5 +21,11 @@ public abstract class EntityBase
     {
         IsDelete = true;
         DeletionDate = DateTime.UtcNow;
+    }
+
+    public virtual void Active()
+    {
+        IsDelete = false;
+        DeletionDate = null;
     }
 }

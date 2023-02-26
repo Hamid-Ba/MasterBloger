@@ -11,6 +11,6 @@ public class CategoryDomainSerivce : ICategoryDomainService
     public void IsTitleExist(string title)
     {
         if(_categoryRepository.Exists(c => c.Title == title))
-            throw new CategoryTitleExistsException();
+            throw new CategoryTitleExistsException($"there is an category with this {title.GetType().Name}");
     }
 }

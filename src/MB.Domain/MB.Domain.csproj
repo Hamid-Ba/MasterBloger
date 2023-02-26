@@ -10,11 +10,17 @@
     <None Remove="CategoryAgg\" />
     <None Remove="CategoryAgg\DomainService\" />
     <None Remove="CategoryAgg\Exceptions\" />
+    <None Remove="ArticleAgg\" />
+    <None Remove="ArticleAgg\DomainService\" />
+    <None Remove="ArticleAgg\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CategoryAgg\" />
     <Folder Include="CategoryAgg\DomainService\" />
     <Folder Include="CategoryAgg\Exceptions\" />
+    <Folder Include="ArticleAgg\" />
+    <Folder Include="ArticleAgg\DomainService\" />
+    <Folder Include="ArticleAgg\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.csproj" />
