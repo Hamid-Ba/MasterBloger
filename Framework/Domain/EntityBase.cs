@@ -13,13 +13,13 @@ public abstract class EntityBase
 
     protected EntityBase()
     {
-        CreationDate = DateTime.Now;
+        CreationDate = DateTime.UtcNow;
         IsDelete = false;
     }
 
     public virtual void Delete()
     {
         IsDelete = true;
-        DeletionDate = DateTime.Now;
+        DeletionDate = DateTime.UtcNow;
     }
 }

@@ -1,10 +1,38 @@
 ﻿using System;
-namespace MB.Domain.CategoryAgg
+using Framework.Domain;
+using MB.Domain.CategoryAgg.DomainService;
+
+namespace MB.Domain.CategoryAgg;
+
+public class Category : EntityBase
 {
-	public class Category
+	public string Title { get; private set; }
+
+	public Category(string title,ICategoryDomainService categoryDomainService)
 	{
-		public Category()
-		{
-		}
+		// PreProcessing
+		Guard(title);
+		categoryDomainService.IsTitleExist(title);
+
+		// Initializing
+		Title = title;
+	}
+
+	public void Edit(string title,ICategoryDomainService categoryDomainService)
+	{
+		// PreProcessing
+        Guard(title);
+		categoryDomainService.IsTitleExist(title);
+
+		// Initializing
+        Title = title;
+		LastUpdateDate = DateTime.UtcNow;
+	}
+
+	// Guard
+	private void Guard(string title)
+	{
+		if (string.IsNullOrWhiteSpace(title))
+			throw new ArgumentNullException($"{title.GetType().Name} Can't be null!");
 	}
 }

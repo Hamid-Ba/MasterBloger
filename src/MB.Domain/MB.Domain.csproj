@@ -8,8 +8,15 @@
 
   <ItemGroup>
     <None Remove="CategoryAgg\" />
+    <None Remove="CategoryAgg\DomainService\" />
+    <None Remove="CategoryAgg\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CategoryAgg\" />
+    <Folder Include="CategoryAgg\DomainService\" />
+    <Folder Include="CategoryAgg\Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Framework.csproj" />
   </ItemGroup>
 </Project>
