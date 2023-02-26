@@ -8,11 +8,16 @@
 
   <ItemGroup>
     <None Remove="CategoryAgg\" />
+    <None Remove="ArticleAgg\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CategoryAgg\" />
+    <Folder Include="ArticleAgg\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
 </Project>

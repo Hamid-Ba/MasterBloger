@@ -17,7 +17,7 @@ public abstract class EntityBase
         IsDelete = false;
     }
 
-    public virtual void Delete()
+    public virtual void Deactive()
     {
         IsDelete = true;
         DeletionDate = DateTime.UtcNow;
