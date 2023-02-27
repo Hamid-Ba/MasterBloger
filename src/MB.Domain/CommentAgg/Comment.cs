@@ -1,7 +1,8 @@
 ﻿using System;
+using Framework;
 using Framework.Domain;
+using Framework.Helpers;
 using MB.Domain.ArticleAgg;
-using MB.Domain.CommentAgg.Helpers;
 
 namespace MB.Domain.CommentAgg;
 

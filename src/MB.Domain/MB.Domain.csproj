@@ -14,7 +14,6 @@
     <None Remove="ArticleAgg\DomainService\" />
     <None Remove="ArticleAgg\Exceptions\" />
     <None Remove="CommentAgg\" />
-    <None Remove="CommentAgg\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CategoryAgg\" />
@@ -24,9 +23,9 @@
     <Folder Include="ArticleAgg\DomainService\" />
     <Folder Include="ArticleAgg\Exceptions\" />
     <Folder Include="CommentAgg\" />
-    <Folder Include="CommentAgg\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.csproj" />
+    <ProjectReference Include="..\MB.Application.Contract\MB.Application.Contract.csproj" />
   </ItemGroup>
 </Project>

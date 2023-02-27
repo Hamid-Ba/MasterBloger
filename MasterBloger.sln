@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Fram
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.Application.Contract", "src\MB.Application.Contract\MB.Application.Contract.csproj", "{EEBCF481-490D-43FE-95C3-0CDC0998A524}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.Application", "src\MB.Application\MB.Application.csproj", "{F5D03877-203C-435B-BA16-BEECF7FB8927}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "New Folder", "New Folder", "{D340B26A-21C7-40AD-82F3-DD3B3EAEFE45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,10 @@ Global
 		{EEBCF481-490D-43FE-95C3-0CDC0998A524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEBCF481-490D-43FE-95C3-0CDC0998A524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEBCF481-490D-43FE-95C3-0CDC0998A524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5D03877-203C-435B-BA16-BEECF7FB8927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D03877-203C-435B-BA16-BEECF7FB8927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5D03877-203C-435B-BA16-BEECF7FB8927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5D03877-203C-435B-BA16-BEECF7FB8927}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +47,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E716A5BC-16C9-4F5F-8112-A9BDABD502A2} = {D330C840-8B6F-4277-8305-72740F13DE1D}
 		{EEBCF481-490D-43FE-95C3-0CDC0998A524} = {D330C840-8B6F-4277-8305-72740F13DE1D}
+		{F5D03877-203C-435B-BA16-BEECF7FB8927} = {D330C840-8B6F-4277-8305-72740F13DE1D}
 	EndGlobalSection
 EndGlobal

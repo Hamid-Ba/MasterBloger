@@ -5,8 +5,9 @@ namespace MB.Application.Contract.CategoryAgg;
 
 public interface ICategoryApplication
 {
-    List<CategoryListDto> GetList();
-    OperationResult ChangeStatus(bool isDelete);
-    OperationResult Create(CreateCategoryCommand command);
-    OperationResult Edit(EditCategoryCommand command);
+    Task<List<CategoryListDto>> GetList();
+    Task<OperationResult> Active(ulong id);
+    Task<OperationResult> DeActive(ulong id);
+    Task<OperationResult> Create(CreateCategoryCommand command);
+    Task<OperationResult> Edit(EditCategoryCommand command);
 }

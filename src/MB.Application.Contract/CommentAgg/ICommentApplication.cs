@@ -1,6 +1,6 @@
 ﻿using System;
 using Framework.Application;
-using MB.Domain.CommentAgg.Helpers;
+using Framework.Helpers;
 
 namespace MB.Application.Contract.CommentAgg;
 

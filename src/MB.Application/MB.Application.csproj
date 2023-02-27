@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MB.Application.Contract\MB.Application.Contract.csproj" />
+    <ProjectReference Include="..\MB.Domain\MB.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="CategoryAgg\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CategoryAgg\" />
+  </ItemGroup>
+</Project>
