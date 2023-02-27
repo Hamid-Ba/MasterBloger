@@ -13,9 +13,11 @@
   <ItemGroup>
     <None Remove="CategoryAgg\" />
     <None Remove="ArticleAgg\" />
+    <None Remove="CommentAgg\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CategoryAgg\" />
     <Folder Include="ArticleAgg\" />
+    <Folder Include="CommentAgg\" />
   </ItemGroup>
 </Project>

@@ -16,8 +16,7 @@ public class Comment : EntityBase
 
 	public Article Article { get; private set; }
 
-    public Comment(string fullName, string email, string content,
-        CommentStatus status, ulong articleId)
+    public Comment(string fullName, string email, string content, ulong articleId)
     {
         // PreProcessing
         Guard(email, content, articleId);
@@ -26,7 +25,7 @@ public class Comment : EntityBase
         FullName = fullName;
         Email = email;
         Content = content;
-        Status = status;
+        Status = CommentStatus.Depending;
         ArticleId = articleId;
     }
 
