@@ -6,5 +6,5 @@ namespace MB.Domain.ArticleAgg;
 
 public interface IArticleRepository : IRepository<Article>
 {
-    List<ArticleListDto> GetList();
+    Task<List<ArticleListDto>> GetList();
 }

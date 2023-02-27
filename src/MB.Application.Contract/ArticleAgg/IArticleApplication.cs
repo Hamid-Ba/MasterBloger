@@ -5,8 +5,9 @@ namespace MB.Application.Contract.ArticleAgg;
 
 public interface IArticleApplication
 {
-    List<ArticleListDto> GetList();
-    OperationResult ChangeStatus(bool isDelete);
-    OperationResult Edit(EditArticleCommand command);
-    OperationResult Create(CreateArticleCommand command);
+    Task<List<ArticleListDto>> GetList();
+    Task<OperationResult> Active(ulong id);
+    Task<OperationResult> DeActive(ulong id);
+    Task<OperationResult> Edit(EditArticleCommand command);
+    Task<OperationResult> Create(CreateArticleCommand command);
 }
