@@ -1,5 +1,6 @@
 ﻿using System;
 using Framework.Application;
+using Framework.Infrastructure;
 using MB.Application.Contract.CategoryAgg;
 using MB.Domain.CategoryAgg;
 using MB.Domain.CategoryAgg.DomainService;
@@ -8,23 +9,29 @@ namespace MB.Application.CategoryAgg;
 
 public class CategoryApplication : ICategoryApplication
 {
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ICategoryRepository _categoryRepository;
     private readonly ICategoryDomainService _categoryDomainService;
 
     public CategoryApplication(ICategoryRepository categoryRepository,
-        ICategoryDomainService categoryDomainService)
+        ICategoryDomainService categoryDomainService,
+        IUnitOfWork unitOfWork)
     {
         _categoryRepository = categoryRepository;
         _categoryDomainService = categoryDomainService;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<OperationResult> Active(ulong id)
     {
         OperationResult result = new();
 
+        _unitOfWork.BeginTransaction();
+
         var category = await _categoryRepository.GetEntityByIdAsync(id);
         category.Active();
-        await _categoryRepository.SaveChangesAsync();
+
+        _unitOfWork.CommitTransaction();
 
         return result.Succeeded("Category Has Been Activated");
     }
@@ -33,9 +40,12 @@ public class CategoryApplication : ICategoryApplication
     {
         OperationResult result = new();
 
+        _unitOfWork.BeginTransaction();
+
         var category = await _categoryRepository.GetEntityByIdAsync(id);
         category.Deactive();
-        await _categoryRepository.SaveChangesAsync();
+
+        _unitOfWork.CommitTransaction();
 
         return result.Succeeded("Category Has Been Deactivated");
     }
@@ -44,9 +54,12 @@ public class CategoryApplication : ICategoryApplication
     {
         OperationResult result = new();
 
+        _unitOfWork.BeginTransaction();
+
         var category = new Category(command.Title!, _categoryDomainService);
         await _categoryRepository.AddEntityAsync(category);
-        await _categoryRepository.SaveChangesAsync();
+
+        _unitOfWork.CommitTransaction();
 
         return result.Succeeded($"Category With Title {category.Title} Has Been Created");
     }
@@ -55,9 +68,12 @@ public class CategoryApplication : ICategoryApplication
     {
         OperationResult result = new();
 
+        _unitOfWork.BeginTransaction();
+
         var category = await _categoryRepository.GetEntityByIdAsync(command.Id);
         category.Edit(command.Title!, _categoryDomainService);
-        await _categoryRepository.SaveChangesAsync();
+
+        _unitOfWork.CommitTransaction();
 
         return result.Succeeded($"Category With Title {category.Title} Has Been Modified");
     }

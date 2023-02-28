@@ -1,5 +1,6 @@
 ﻿using System;
 using Framework.Application;
+using Framework.Infrastructure;
 using MB.Application.Contract.ArticleAgg;
 using MB.Domain.ArticleAgg;
 using MB.Domain.ArticleAgg.DomainService;
@@ -8,23 +9,29 @@ namespace MB.Application.ArticleAgg;
 
 public class ArticleApplication : IArticleApplication
 {
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IArticleRepository _articleRepository;
     private readonly IArticleDomainService _articleDomainService;
 
     public ArticleApplication(IArticleRepository articleRepository,
-        IArticleDomainService articleDomainService)
+        IArticleDomainService articleDomainService,
+        IUnitOfWork unitOfWork)
     {
         _articleRepository = articleRepository;
         _articleDomainService = articleDomainService;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<OperationResult> Active(ulong id)
     {
         OperationResult result = new();
 
+        _unitOfWork.BeginTransaction();
+
         var article = await _articleRepository.GetEntityByIdAsync(id);
         article.Active();
-        await _articleRepository.SaveChangesAsync();
+
+        _unitOfWork.CommitTransaction();
 
         return result.Succeeded("Article Has Been Activated");
     }
@@ -33,9 +40,12 @@ public class ArticleApplication : IArticleApplication
     {
         OperationResult result = new();
 
+        _unitOfWork.BeginTransaction();
+
         var article = await _articleRepository.GetEntityByIdAsync(id);
         article.Deactive();
-        await _articleRepository.SaveChangesAsync();
+
+        _unitOfWork.CommitTransaction();
 
         return result.Succeeded("Article Has Been Deactiveted");
     }
@@ -44,12 +54,15 @@ public class ArticleApplication : IArticleApplication
     {
         OperationResult result = new();
 
+        _unitOfWork.BeginTransaction();
+
         var imageName = Uploader.ImageUploader(command.Image!, "articles", null!);
 
         var article = new Article(command.Title!, command.ShortDescription!, command.Description!
             , imageName, command.CategoryId, _articleDomainService);
         await _articleRepository.AddEntityAsync(article);
-        await _articleRepository.SaveChangesAsync();
+
+        _unitOfWork.CommitTransaction();
 
         return result.Succeeded($"Article With Title {article.Title} Has Been Created");
     }
@@ -58,12 +71,15 @@ public class ArticleApplication : IArticleApplication
     {
         OperationResult result = new();
 
+        _unitOfWork.BeginTransaction();
+
         var article = await _articleRepository.GetEntityByIdAsync(command.Id);
         var imageName = Uploader.ImageUploader(command.Image!, "articles", article.Image!);
 
         article.Edit(command.Title!, command.ShortDescription!, command.Description!
             , imageName, command.CategoryId, _articleDomainService);
-        await _articleRepository.SaveChangesAsync();
+
+        _unitOfWork.CommitTransaction();
 
         return result.Succeeded($"Article With Title {article.Title} Has Been Modified");
     }
