@@ -2,11 +2,11 @@
 
 namespace MB.Domain.CategoryAgg.DomainService;
 
-public class CategoryDomainSerivce : ICategoryDomainService
+public class CategoryDomainService : ICategoryDomainService
 {
     private readonly ICategoryRepository _categoryRepository;
 
-    public CategoryDomainSerivce(ICategoryRepository categoryRepository) => _categoryRepository = categoryRepository;
+    public CategoryDomainService(ICategoryRepository categoryRepository) => _categoryRepository = categoryRepository;
 
     public void IsTitleExist(string title)
     {

@@ -11,9 +11,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Mapping\" />
+    <None Remove="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mapping\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MB.Domain\MB.Domain.csproj" />
