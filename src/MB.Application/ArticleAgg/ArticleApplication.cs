@@ -33,7 +33,7 @@ public class ArticleApplication : IArticleApplication
 
         _unitOfWork.CommitTransaction();
 
-        return result.Succeeded("Article Has Been Activated");
+        return result.Succeeded(article,"Article Has Been Activated");
     }
 
     public async Task<OperationResult> DeActive(ulong id)
@@ -47,24 +47,21 @@ public class ArticleApplication : IArticleApplication
 
         _unitOfWork.CommitTransaction();
 
-        return result.Succeeded("Article Has Been Deactiveted");
+        return result.Succeeded(article,"Article Has Been Deactiveted");
     }
 
     public async Task<OperationResult> Create(CreateArticleCommand command)
     {
         OperationResult result = new();
 
-        _unitOfWork.BeginTransaction();
-
         var imageName = Uploader.ImageUploader(command.Image!, "articles", null!);
 
         var article = new Article(command.Title!, command.ShortDescription!, command.Description!
             , imageName, command.CategoryId, _articleDomainService);
         await _articleRepository.AddEntityAsync(article);
+        await _articleRepository.SaveChangesAsync();
 
-        _unitOfWork.CommitTransaction();
-
-        return result.Succeeded($"Article With Title {article.Title} Has Been Created");
+        return result.Succeeded(article,$"Article With Title {article.Title} Has Been Created");
     }
 
     public async Task<OperationResult> Edit(EditArticleCommand command)
@@ -81,8 +78,11 @@ public class ArticleApplication : IArticleApplication
 
         _unitOfWork.CommitTransaction();
 
-        return result.Succeeded($"Article With Title {article.Title} Has Been Modified");
+        return result.Succeeded(article,$"Article With Title {article.Title} Has Been Modified");
     }
 
     public async Task<List<ArticleListDto>> GetList() => await _articleRepository.GetList();
+
+    public async Task<ArticleDto> GetBy(ulong id) => await _articleRepository.GetBy(id);
+    
 }

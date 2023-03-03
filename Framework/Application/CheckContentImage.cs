@@ -67,18 +67,18 @@ public static class CheckContentImage
         //  we can assume that it's not a valid image
         //-------------------------------------------
 
-        try
-        {
-            using (var bitmap = new System.Drawing.Bitmap(postedFile.OpenReadStream())) { }
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-        finally
-        {
-            postedFile.OpenReadStream().Position = 0;
-        }
+        //try
+        //{
+        //    using (var bitmap = new System.Drawing.Bitmap(postedFile.OpenReadStream())) { }
+        //}
+        //catch (Exception)
+        //{
+        //    return false;
+        //}
+        //finally
+        //{
+        //    postedFile.OpenReadStream().Position = 0;
+        //}
 
         return true;
     }

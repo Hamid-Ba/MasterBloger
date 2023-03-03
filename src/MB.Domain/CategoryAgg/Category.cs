@@ -7,9 +7,11 @@ namespace MB.Domain.CategoryAgg;
 
 public class Category : EntityBase
 {
-	public string Title { get; private set; }
+	public string? Title { get; private set; }
 
-	public ICollection<Article> Articles { get; private set; }
+	public ICollection<Article>? Articles { get; private set; }
+
+	protected Category() { }
 
 	public Category(string title,ICategoryDomainService categoryDomainService)
 	{

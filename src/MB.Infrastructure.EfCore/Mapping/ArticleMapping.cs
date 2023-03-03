@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Emit;
 using MB.Domain.ArticleAgg;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,6 +12,7 @@ public class ArticleMapping : IEntityTypeConfiguration<Article>
     public void Configure(EntityTypeBuilder<Article> builder)
     {
         builder.HasKey(k => k.Id);
+
         builder.Property(p => p.Title).HasMaxLength(85).IsRequired();
         builder.Property(p => p.ShortDescription).HasMaxLength(225).IsRequired();
         builder.Property(p => p.Description).IsRequired();

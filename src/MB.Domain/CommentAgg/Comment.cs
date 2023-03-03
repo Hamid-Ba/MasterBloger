@@ -8,13 +8,15 @@ namespace MB.Domain.CommentAgg;
 
 public class Comment : EntityBase
 {
-    public string FullName { get; private set; }
-	public string Email { get; private set; }
-	public string Content { get; private set; }
+    public string? FullName { get; private set; }
+	public string? Email { get; private set; }
+	public string? Content { get; private set; }
 	public CommentStatus Status { get; private set; }
-	public ulong ArticleId { get; private set; }
+	public ulong? ArticleId { get; private set; }
 
-	public Article Article { get; private set; }
+    public Article? Article { get; private set; } = null!;
+
+    protected Comment() { }
 
     public Comment(string fullName, string email, string content, ulong articleId)
     {

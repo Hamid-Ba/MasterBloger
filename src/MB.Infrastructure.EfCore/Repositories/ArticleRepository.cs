@@ -13,6 +13,19 @@ public class ArticleRepository : Repository<Article>, IArticleRepository
 
     public ArticleRepository(BlogContext context) : base(context) => _context = context;
 
+    public async Task<ArticleDto> GetBy(ulong id) => (await _context.Articles
+        .Include(c => c.Category)
+        .Select(a => new ArticleDto
+        {
+            Id = a.Id,
+            Title = a.Title,
+            CategoryTitle = a.Category.Title,
+            ShortDescription = a.ShortDescription,
+            Description = a.Description,
+            IsDelete = a.IsDelete,
+            CreationDate = a.CreationDate.ToString(CultureInfo.CurrentCulture)
+        }).AsNoTracking().FirstOrDefaultAsync(a => a.Id == id))!;
+
     public async Task<List<ArticleListDto>> GetList() => await _context.Articles
         .Include(c => c.Category)
         .Select(a => new ArticleListDto

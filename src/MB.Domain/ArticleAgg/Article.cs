@@ -8,14 +8,16 @@ namespace MB.Domain.ArticleAgg;
 
 public class Article : EntityBase
 {
-    public string Title { get; private set; }
-	public string ShortDescription { get; private set; }
-	public string Description { get; private set; }
-	public string Image { get; private set; }
+    public string? Title { get; private set; }
+	public string? ShortDescription { get; private set; }
+	public string? Description { get; private set; }
+	public string? Image { get; private set; }
 	public ulong CategoryId { get; private set; }
-    
-    public Category Category { get; private set; }
-    public ICollection<Comment> Comments { get; private set; }
+
+    public Category? Category { get; private set; } = null!;
+    public ICollection<Comment>? Comments { get; private set; }
+
+    protected Article() { }
 
     public Article(string title, string shortDescription, string description,
         string image, ulong categoryId, IArticleDomainService articleDomainService)

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.Infrastructure.EfCore", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.Infrastructure.Configuration", "src\MB.Infrastructure.Configuration\MB.Infrastructure.Configuration.csproj", "{EFD0CECC-8DC0-4E4B-A737-A9729C9A92A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.EndPoint.API", "src\MB.EndPoint.API\MB.EndPoint.API.csproj", "{C6743FB7-7E38-4C86-935E-0579F589BFE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{EFD0CECC-8DC0-4E4B-A737-A9729C9A92A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFD0CECC-8DC0-4E4B-A737-A9729C9A92A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFD0CECC-8DC0-4E4B-A737-A9729C9A92A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6743FB7-7E38-4C86-935E-0579F589BFE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6743FB7-7E38-4C86-935E-0579F589BFE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6743FB7-7E38-4C86-935E-0579F589BFE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6743FB7-7E38-4C86-935E-0579F589BFE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +68,6 @@ Global
 		{F5D03877-203C-435B-BA16-BEECF7FB8927} = {D330C840-8B6F-4277-8305-72740F13DE1D}
 		{B9008CD5-91A2-4430-824E-781F60F76126} = {D330C840-8B6F-4277-8305-72740F13DE1D}
 		{EFD0CECC-8DC0-4E4B-A737-A9729C9A92A8} = {D330C840-8B6F-4277-8305-72740F13DE1D}
+		{C6743FB7-7E38-4C86-935E-0579F589BFE9} = {D330C840-8B6F-4277-8305-72740F13DE1D}
 	EndGlobalSection
 EndGlobal

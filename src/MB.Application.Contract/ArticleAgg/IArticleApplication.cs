@@ -5,6 +5,7 @@ namespace MB.Application.Contract.ArticleAgg;
 
 public interface IArticleApplication
 {
+    Task<ArticleDto> GetBy(ulong id);
     Task<List<ArticleListDto>> GetList();
     Task<OperationResult> Active(ulong id);
     Task<OperationResult> DeActive(ulong id);
