@@ -27,13 +27,8 @@ public class ArticleController : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            var process = await _articleApplication.Create(command);
-
-            //var res = new Dictionary<string, object>();
-            //res.Add("Message", process.Message);
-            //res.Add("Article", process.Object);
-
-            return process.IsSucceeded ? Ok(process.Message) : BadRequest(process.Message);
+            var res = await _articleApplication.Create(command);
+            return res.IsSucceeded ? CreatedAtAction(nameof(GetBy), new { id = res.Object },command) : BadRequest(res.Message);
         }
 
         return BadRequest(ModelState);
@@ -44,15 +39,9 @@ public class ArticleController : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            var process = await _articleApplication.Edit(command);
-
-            var res = new Dictionary<string, object>();
-            res.Add("Message", process.Message);
-            res.Add("Article", process.Object);
-
-            return process.IsSucceeded ? Ok(res) : BadRequest(process.Message);
+            var res = await _articleApplication.Edit(command);
+            return res.IsSucceeded ? CreatedAtAction(nameof(GetBy), new { id = res.Object }, command) : BadRequest(res.Message);
         }
         return BadRequest(ModelState);
     }
 }
-

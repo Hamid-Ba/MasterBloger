@@ -7,6 +7,7 @@ public class ArticleListDto
 {
     public ulong Id { get; set; }
     public string? Title { get;  set; }
+    public string? Image { get; set; }
     public string? ShortDescription { get;  set; }
     public string? CategoryTitle { get;  set; }
     public bool IsDelete { get; set; }
@@ -17,6 +18,7 @@ public class ArticleDto
 {
     public ulong Id { get; set; }
     public string? Title { get; set; }
+    public string? Image { get; set; }
     public string? ShortDescription { get; set; }
     public string? Description { get; set; }
     public string? CategoryTitle { get; set; }

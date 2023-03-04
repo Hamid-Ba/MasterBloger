@@ -19,7 +19,8 @@ public class ArticleRepository : Repository<Article>, IArticleRepository
         {
             Id = a.Id,
             Title = a.Title,
-            CategoryTitle = a.Category.Title,
+            CategoryTitle = a.Category!.Title,
+            Image = a.Image,
             ShortDescription = a.ShortDescription,
             Description = a.Description,
             IsDelete = a.IsDelete,
@@ -32,8 +33,9 @@ public class ArticleRepository : Repository<Article>, IArticleRepository
         {
             Id = a.Id,
             Title = a.Title,
-            CategoryTitle = a.Category.Title,
-            ShortDescription = a.ShortDescription.Substring(0, 10) + " ...",
+            CategoryTitle = a.Category!.Title,
+            Image = a.Image,
+            ShortDescription = a.ShortDescription!.Substring(0, 10) + " ...",
             IsDelete = a.IsDelete,
             CreationDate = a.CreationDate.ToString(CultureInfo.CurrentCulture)
         }).OrderByDescending(a => a.Id).ToListAsync();

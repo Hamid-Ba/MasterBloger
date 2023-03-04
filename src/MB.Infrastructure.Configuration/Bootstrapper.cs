@@ -20,7 +20,7 @@ public static class Bootstrapper
 {
     public static void Configure(IServiceCollection services, string connectionString)
     {
-        services.AddDbContext<BlogContext>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<BlogContext>(options => options.UseSqlServer(connectionString));
 
         services.AddTransient<ICategoryDomainService, CategoryDomainService>();
         services.AddTransient<ICategoryApplication, CategoryApplication>();
