@@ -68,17 +68,14 @@ public class ArticleApplication : IArticleApplication
     {
         OperationResult result = new();
 
-        _unitOfWork.BeginTransaction();
-
         var article = await _articleRepository.GetEntityByIdAsync(command.Id);
         var imageName = Uploader.ImageUploader(command.Image!, "articles", article.Image!);
 
         article.Edit(command.Title!, command.ShortDescription!, command.Description!
             , imageName, command.CategoryId, _articleDomainService);
+        await _articleRepository.SaveChangesAsync();
 
-        _unitOfWork.CommitTransaction();
-
-        return result.Succeeded(article.Id, $"Article With Title {article.Title} Has Been Modified");
+        return result.Succeeded(article, $"Article With Title {article.Title} Has Been Modified");
     }
 
     public async Task<List<ArticleListDto>> GetList() => await _articleRepository.GetList();

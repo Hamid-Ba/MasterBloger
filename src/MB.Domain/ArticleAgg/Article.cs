@@ -40,7 +40,7 @@ public class Article : EntityBase
     {
         // PreProcessing
         Guard(title, shortDescription, description, categoryId);
-        articleDomainService.IsTitleExist(title);
+        articleDomainService.CanBeModified(this.Id,title);
 
         // Initializing
         Title = title;

@@ -10,6 +10,7 @@ public static class Uploader
 {
     public static string ImageUploader(IFormFile file, string path, string currentImage)
     {
+        if (!string.IsNullOrWhiteSpace(currentImage) && (file is null || !file.IsImage())) return currentImage;
         if (file is null || !file.IsImage()) return "";
 
         var directoryPath = $"{Directory.GetCurrentDirectory()}/wwwroot/Pictures/{path}";

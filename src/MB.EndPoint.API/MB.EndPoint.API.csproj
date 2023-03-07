@@ -23,4 +23,10 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Pictures\articles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\Pictures\articles\" />
+  </ItemGroup>
 </Project>

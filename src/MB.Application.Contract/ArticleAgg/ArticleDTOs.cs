@@ -38,5 +38,4 @@ public class CreateArticleCommand
 public class EditArticleCommand : CreateArticleCommand
 {
     public ulong Id { get; set; }
-    public string? ImageName { get; set; }
 }

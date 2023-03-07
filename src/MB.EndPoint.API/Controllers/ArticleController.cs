@@ -28,19 +28,19 @@ public class ArticleController : ControllerBase
         if (ModelState.IsValid)
         {
             var res = await _articleApplication.Create(command);
-            return res.IsSucceeded ? CreatedAtAction(nameof(GetBy), new { id = res.Object },command) : BadRequest(res.Message);
+            return res.IsSucceeded ? CreatedAtAction(nameof(GetBy), new { id = res.Object }, command) : BadRequest(res.Message);
         }
 
         return BadRequest(ModelState);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Edit([FromRoute] EditArticleCommand command)
+    public async Task<IActionResult> Edit([FromForm] EditArticleCommand command)
     {
         if (ModelState.IsValid)
         {
             var res = await _articleApplication.Edit(command);
-            return res.IsSucceeded ? CreatedAtAction(nameof(GetBy), new { id = res.Object }, command) : BadRequest(res.Message);
+            return res.IsSucceeded ? Ok(res.Object) : BadRequest(res.Message);
         }
         return BadRequest(ModelState);
     }
