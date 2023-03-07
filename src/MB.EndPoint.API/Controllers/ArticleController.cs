@@ -25,23 +25,59 @@ public class ArticleController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromForm] CreateArticleCommand command)
     {
-        if (ModelState.IsValid)
+        try
         {
-            var res = await _articleApplication.Create(command);
-            return res.IsSucceeded ? CreatedAtAction(nameof(GetBy), new { id = res.Object }, command) : BadRequest(res.Message);
+            if (ModelState.IsValid)
+            {
+                var res = await _articleApplication.Create(command);
+                return res.IsSucceeded ? CreatedAtAction(nameof(GetBy), new { id = res.Object }, command) : BadRequest(res.Message);
+            }
+
+            return BadRequest(ModelState);
         }
 
-        return BadRequest(ModelState);
+        catch (Exception ex) { return BadRequest(); }
     }
 
     [HttpPut]
     public async Task<IActionResult> Edit([FromForm] EditArticleCommand command)
     {
-        if (ModelState.IsValid)
+        try
         {
-            var res = await _articleApplication.Edit(command);
+            if (ModelState.IsValid)
+            {
+                var res = await _articleApplication.Edit(command);
+                return res.IsSucceeded ? Ok(res.Object) : BadRequest(res.Message);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        catch { return BadRequest(); }
+    }
+
+    [HttpPut("active/{id}")]
+    public async Task<IActionResult> Active(ulong id)
+    {
+        try
+        {
+            var res = await _articleApplication.Active(id);
             return res.IsSucceeded ? Ok(res.Object) : BadRequest(res.Message);
         }
-        return BadRequest(ModelState);
+
+        catch { return BadRequest(); }
     }
+
+    [HttpPut("deActive/{id}")]
+    public async Task<IActionResult> Deactive(ulong id)
+    {
+        try
+        {
+            var res = await _articleApplication.DeActive(id);
+            return res.IsSucceeded ? Ok(res.Object) : BadRequest(res.Message);
+        }
+
+        catch { return BadRequest(); }
+    }
+
 }

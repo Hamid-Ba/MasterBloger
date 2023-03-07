@@ -26,28 +26,24 @@ public class ArticleApplication : IArticleApplication
     {
         OperationResult result = new();
 
-        _unitOfWork.BeginTransaction();
-
         var article = await _articleRepository.GetEntityByIdAsync(id);
         article.Active();
 
-        _unitOfWork.CommitTransaction();
+        await _articleRepository.SaveChangesAsync();
 
-        return result.Succeeded(article.Id,"Article Has Been Activated");
+        return result.Succeeded(new { status = !article.IsDelete }, "Article Has Been Activated");
     }
 
     public async Task<OperationResult> DeActive(ulong id)
     {
         OperationResult result = new();
 
-        _unitOfWork.BeginTransaction();
-
         var article = await _articleRepository.GetEntityByIdAsync(id);
         article.Deactive();
 
-        _unitOfWork.CommitTransaction();
+        await _articleRepository.SaveChangesAsync();
 
-        return result.Succeeded(article.Id, "Article Has Been Deactiveted");
+        return result.Succeeded(new { status = !article.IsDelete }, "Article Has Been Deactiveted");
     }
 
     public async Task<OperationResult> Create(CreateArticleCommand command)
