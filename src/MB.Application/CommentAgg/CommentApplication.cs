@@ -1,33 +1,30 @@
-﻿using System;
-using Framework.Application;
+﻿using Framework.Application;
 using Framework.Helpers;
-using Framework.Infrastructure;
 using MB.Application.Contract.CommentAgg;
+using MB.Domain.ArticleAgg.DomainService;
 using MB.Domain.CommentAgg;
 
 namespace MB.Application.CommentAgg;
 
 public class CommentApplication : ICommentApplication
 {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly ICommentRepository _commentRepository;
+    private readonly IArticleDomainService _articleDomainService;
 
-    public CommentApplication(ICommentRepository commentRepository, IUnitOfWork unitOfWork)
+    public CommentApplication(ICommentRepository commentRepository, IArticleDomainService articleDomainService)
     {
-        _unitOfWork = unitOfWork;
         _commentRepository = commentRepository;
+        _articleDomainService = articleDomainService;
     }
 
     public async Task<OperationResult> ChangeStatus(ulong id, CommentStatus status)
     {
         OperationResult result = new();
 
-        _unitOfWork.BeginTransaction();
-
         var comment = await _commentRepository.GetEntityByIdAsync(id);
         comment.ChangeStatus(status);
 
-        _unitOfWork.CommitTransaction();
+        await _commentRepository.SaveChangesAsync();
 
         return result.Succeeded($"{comment.FullName}'s Comment Has Been Modified");
     }
@@ -36,15 +33,13 @@ public class CommentApplication : ICommentApplication
     {
         OperationResult result = new();
 
-        _unitOfWork.BeginTransaction();
+        var comment = new Comment(command.FullName!, command.Email!, command.Content!, command.ArticleId, _articleDomainService);
 
-        var comment = new Comment(command.FullName!, command.Email!, command.Content!, command.ArticleId);
         await _commentRepository.AddEntityAsync(comment);
+        await _commentRepository.SaveChangesAsync();
 
-        _unitOfWork.CommitTransaction();
-
-        return result.Succeeded($"{command.FullName}'s Comment Has Been Created");
+        return result.Succeeded(command.ArticleId, $"{command.FullName}'s Comment Has Been Created");
     }
 
-    public async Task<List<CommentListDto>> GetList() => await _commentRepository.GetList();
+    public async Task<List<CommentListDto>> GetListBy(ulong articleId) => await _commentRepository.GetListBy(articleId);
 }

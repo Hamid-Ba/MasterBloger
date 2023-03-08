@@ -1,12 +1,11 @@
-﻿using System;
-using MB.Application.Contract.ArticleAgg;
+﻿using MB.Application.Contract.ArticleAgg;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace MB.EndPoint.API.Controllers;
 
 [ApiController]
-[Route("api/Article")]
+[Route("api/article")]
 public class ArticleController : ControllerBase
 {
     private readonly IMemoryCache _memoryCache;

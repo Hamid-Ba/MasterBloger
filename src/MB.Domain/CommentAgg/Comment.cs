@@ -1,8 +1,7 @@
-﻿using System;
-using Framework;
-using Framework.Domain;
+﻿using Framework.Domain;
 using Framework.Helpers;
 using MB.Domain.ArticleAgg;
+using MB.Domain.ArticleAgg.DomainService;
 
 namespace MB.Domain.CommentAgg;
 
@@ -18,10 +17,12 @@ public class Comment : EntityBase
 
     protected Comment() { }
 
-    public Comment(string fullName, string email, string content, ulong articleId)
+    public Comment(string fullName, string email, string content,
+        ulong articleId, IArticleDomainService _articleDomainService)
     {
         // PreProcessing
         Guard(email, content, articleId);
+        _articleDomainService.IsArticleExistWithThis(articleId);
 
         // Initializing
         FullName = fullName;

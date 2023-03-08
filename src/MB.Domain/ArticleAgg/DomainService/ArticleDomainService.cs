@@ -14,6 +14,12 @@ public class ArticleDomainService : IArticleDomainService
             throw new ArticleTitleExistsException($"there is an article with this {title.GetType().Name}!");
     }
 
+    public void IsArticleExistWithThis(ulong id)
+    {
+        if (!_articleRepository.Exists(a => a.Id == id))
+            throw new ArticleDoesNotExist($"there is not an article with the id = {id}!");
+    }
+
     public void IsTitleExist(string title)
     {
         if (_articleRepository.Exists(a => a.Title == title))
