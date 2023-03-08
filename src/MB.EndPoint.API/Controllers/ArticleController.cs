@@ -1,6 +1,7 @@
 ﻿using System;
 using MB.Application.Contract.ArticleAgg;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MB.EndPoint.API.Controllers;
 
@@ -8,12 +9,26 @@ namespace MB.EndPoint.API.Controllers;
 [Route("api/Article")]
 public class ArticleController : ControllerBase
 {
+    private readonly IMemoryCache _memoryCache;
     private readonly IArticleApplication _articleApplication;
 
-    public ArticleController(IArticleApplication articleApplication) => _articleApplication = articleApplication;
+    public ArticleController(IMemoryCache memoryCache, IArticleApplication articleApplication)
+    {
+        _memoryCache = memoryCache;
+        _articleApplication = articleApplication;
+    }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll() => Ok(await _articleApplication.GetList());
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await _memoryCache.GetOrCreateAsync("articles", entry =>
+        {
+            entry.AbsoluteExpiration = DateTime.Now.AddHours(5);
+            return _articleApplication.GetList();
+        });
+
+        return Ok(result);
+    }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetBy(ulong id)
@@ -30,6 +45,7 @@ public class ArticleController : ControllerBase
             if (ModelState.IsValid)
             {
                 var res = await _articleApplication.Create(command);
+                _memoryCache.Remove("articles");
                 return res.IsSucceeded ? CreatedAtAction(nameof(GetBy), new { id = res.Object }, command) : BadRequest(res.Message);
             }
 
