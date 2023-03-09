@@ -1,4 +1,5 @@
 ﻿using MB.Application.Contract.ArticleAgg;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -51,7 +52,7 @@ public class ArticleController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        catch (Exception ex) { return BadRequest(); }
+        catch (Exception ex) { return BadRequest(ex.Message); }
     }
 
     [HttpPut]
@@ -69,6 +70,22 @@ public class ArticleController : ControllerBase
         }
 
         catch { return BadRequest(); }
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Patch(ulong id, [FromBody] JsonPatchDocument<EditArticleCommand> document)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var res = await _articleApplication.Patch(new(id, document));
+                return res.IsSucceeded ? Ok(res.Object) : BadRequest(res.Message);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (Exception ex) { return BadRequest(ex.Message); }
     }
 
     [HttpPut("active/{id}")]

@@ -27,6 +27,15 @@ public class ArticleRepository : Repository<Article>, IArticleRepository
             CreationDate = a.CreationDate.ToString(CultureInfo.CurrentCulture)
         }).AsNoTracking().FirstOrDefaultAsync(a => a.Id == id))!;
 
+    public async Task<EditArticleCommand> GetForEditBy(ulong id) => (await _context.Articles.Select(a => new EditArticleCommand
+    {
+        Id = a.Id,
+        Title = a.Title,
+        CategoryId = a.CategoryId,
+        ShortDescription = a.ShortDescription,
+        Description = a.Description
+    }).FirstOrDefaultAsync(a => a.Id == id))!;
+
     public async Task<List<ArticleListDto>> GetList() => await _context.Articles
         .Include(c => c.Category)
         .Select(a => new ArticleListDto

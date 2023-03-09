@@ -1,28 +1,29 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Framework.Domain;
 
 public interface IRepository<TEntity>
 {
-    //Read ALL
+    // Read ALL
     IEnumerable<TEntity> GetAllEntities();
     Task<IEnumerable<TEntity>> GetAllEntitiesAsync();
 
-    //Read ONE
+    // Read ONE
     TEntity GetEntityById(object id);
     Task<TEntity> GetEntityByIdAsync(object id);
 
-    //Create One&Range
+    // Create One&Range
     object AddEntity(TEntity entity);
     void AddRangeOfEntities(IEnumerable<TEntity> entities);
     Task<object> AddEntityAsync(TEntity entity);
     Task AddRangeOfEntitiesAsync(IEnumerable<TEntity> entities);
 
-    //Update One&Range
+    // Update One&Range
     bool UpdateEntity(TEntity entity);
     void UpdateRangeOfEntities(IEnumerable<TEntity> entities);
 
-    //Delete One&Range
+    // Delete One&Range
     bool DeleteEntity(TEntity entity);
     void DeleteRangeOfEntities(IEnumerable<TEntity> entities);
 

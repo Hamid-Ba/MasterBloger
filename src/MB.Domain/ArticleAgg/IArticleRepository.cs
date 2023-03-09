@@ -8,4 +8,5 @@ public interface IArticleRepository : IRepository<Article>
 {
     Task<ArticleDto> GetBy(ulong id);
     Task<List<ArticleListDto>> GetList();
+    Task<EditArticleCommand> GetForEditBy(ulong id);
 }

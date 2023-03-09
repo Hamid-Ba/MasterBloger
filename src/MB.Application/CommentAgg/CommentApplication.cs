@@ -26,7 +26,11 @@ public class CommentApplication : ICommentApplication
 
         await _commentRepository.SaveChangesAsync();
 
-        return result.Succeeded($"{comment.FullName}'s Comment Has Been Modified");
+        return result.Succeeded(new
+        {
+            articleId = comment.ArticleId,
+            status = comment.Status.GetDisplayName()
+        }, $"{comment.FullName}'s Comment Has Been Modified");
     }
 
     public async Task<OperationResult> Create(CreateCommentCommand command)

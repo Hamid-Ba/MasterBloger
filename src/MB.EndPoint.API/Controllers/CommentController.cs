@@ -1,6 +1,8 @@
+using Framework.Helpers;
 using MB.Application.Contract.CommentAgg;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace MB.EndPoint.API.Controllers;
 
@@ -23,7 +25,7 @@ public class CommentController : ControllerBase
     {
         var result = await _memoryCache.GetOrCreateAsync((string)($"comments{articleId}"), entry =>
         {
-            entry.AbsoluteExpiration = DateTime.Now.AddHours(10);
+            entry.AbsoluteExpiration = DateTime.Now.AddMinutes(1);
             return _commentApplication.GetListBy(articleId);
         });
 
@@ -31,7 +33,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody]CreateCommentCommand command)
+    public async Task<IActionResult> Create([FromBody] CreateCommentCommand command)
     {
         try
         {
@@ -40,6 +42,22 @@ public class CommentController : ControllerBase
                 var res = await _commentApplication.Create(command);
                 _memoryCache.Remove((string)($"comments{res.Object}"));
                 return res.IsSucceeded ? CreatedAtAction(nameof(GetAll), new { articleId = res.Object }, command) : BadRequest(res.Message);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (Exception ex) { return BadRequest(); }
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> ChangeStatus(ulong id, [FromBody] CommentStatus status)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var res = await _commentApplication.ChangeStatus(id, status);
+                return res.IsSucceeded ? Ok(res.Object) : BadRequest(res.Message);
             }
 
             return BadRequest(ModelState);

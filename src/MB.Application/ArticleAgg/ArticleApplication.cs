@@ -4,6 +4,7 @@ using Framework.Infrastructure;
 using MB.Application.Contract.ArticleAgg;
 using MB.Domain.ArticleAgg;
 using MB.Domain.ArticleAgg.DomainService;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace MB.Application.ArticleAgg;
 
@@ -77,5 +78,16 @@ public class ArticleApplication : IArticleApplication
     public async Task<List<ArticleListDto>> GetList() => await _articleRepository.GetList();
 
     public async Task<ArticleDto> GetBy(ulong id) => await _articleRepository.GetBy(id);
-    
+
+    public async Task<OperationResult> Patch(PatchedArticleCommand command)
+    {
+        OperationResult result = new();
+
+        var article = await _articleRepository.GetForEditBy(command.Id);
+
+        command.Document!.ApplyTo(article);
+        await Edit(article);
+
+        return result.Succeeded(article, $"Article With Title {article.Title} Has Been Modified");
+    }
 }

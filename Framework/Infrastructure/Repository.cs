@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -61,5 +62,4 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     public void SaveChanges() => _context.SaveChanges();
 
     public Task SaveChangesAsync() => _context.SaveChangesAsync();
-    
 }
